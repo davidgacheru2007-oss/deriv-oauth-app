@@ -34,9 +34,14 @@
         // Your exact partner token string from your dashboard
         var APP_ID = "34IJSk4c0LF1i7kRla4s9"; 
 
-        // Set up the click action using simple, safe text addition
+        // Set up the click action using the dynamic redirection protocol
         document.getElementById("loginBtn").onclick = function() {
-            var targetUrl = "https://oauth.deriv.com/oauth2/authorize?app_id=" + APP_ID + "&l=en";
+            // Automatically captures your live site URL (https://vercel.app)
+            var currentSiteUrl = window.location.origin + window.location.pathname;
+            
+            // Clean format joining the App ID and the encoded Redirect URL
+            var targetUrl = "https://deriv.com" + APP_ID + "&l=en&redirect_uri=" + encodeURIComponent(currentSiteUrl);
+            
             window.location.href = targetUrl;
         };
 
@@ -57,4 +62,5 @@
         window.onload = checkOAuthResponse;
     </script>
 </body>
-</html>
+    </html>
+    
