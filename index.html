@@ -1,31 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mobile Deriv Platform</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 30px; background: #111827; color: #f9fafb; margin: 0; }
+        .card { background: #1f2937; padding: 25px; border-radius: 12px; max-width: 400px; margin: 40px auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .btn { background: #ff444f; color: white; padding: 14px 28px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn:hover { background: #e03a44; }
+        .profile { display: none; text-align: left; background: #374151; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        .profile p { margin: 8px 0; font-size: 14px; }
+        span { color: #38bdf8; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Mobile Trading Hub</h2>
+        <p style="color: #9ca3af;">Connect securely via official Deriv Authentication.</p>
+        
+        <button class="btn" id="loginBtn">Log In with Deriv</button>
+
+        <div class="profile" id="userProfile">
+            <h3 style="color: #4ade80; margin-top: 0;">✓ Connected Successfully</h3>
+            <p>Account ID: <span id="accId">Loading...</span></p>
+            <p>Currency: <span id="currency">Loading...</span></p>
+            <p>Auth Token: <span id="token" style="font-size:11px; word-break:break-all;">Loading...</span></p>
+        </div>
+    </div>
+
     <script>
-        // Your exact text and letter App ID from your dashboard:
-        const APP_ID = '34IJSk4c0LF1i7kRla4s9'; 
+        // Your exact partner token string from your dashboard
+        var APP_ID = "34IJSk4c0LF1i7kRla4s9"; 
 
-        // Automatically captures your Vercel link
-        const REDIRECT_URI = window.location.origin + window.location.pathname;
-
-        // Triggers the login sequence
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            // Clean link formula to handle mixed text/number App IDs flawlessly
-            const oauthUrl = "https://deriv.com" + APP_ID + "&l=en";
-            window.location.href = oauthUrl;
-        });
+        // Set up the click action using simple, safe text addition
+        document.getElementById("loginBtn").onclick = function() {
+            var targetUrl = "https://oauth.deriv.com/oauth2/authorize?app_id=" + APP_ID + "&l=en";
+            window.location.href = targetUrl;
+        };
 
         // Processes URL values returned by Deriv after a successful login
         function checkOAuthResponse() {
-            const urlParams = new URLSearchParams(window.location.search);
+            var urlParams = new URLSearchParams(window.location.search);
             
-            if (urlParams.has('acct1')) {
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('userProfile').style.display = 'block';
+            if (urlParams.has("acct1")) {
+                document.getElementById("loginBtn").style.display = "none";
+                document.getElementById("userProfile").style.display = "block";
                 
-                document.getElementById('accId').innerText = urlParams.get('acct1');
-                document.getElementById('currency').innerText = urlParams.get('cur1').toUpperCase();
-                document.getElementById('token').innerText = urlParams.get('token1');
+                document.getElementById("accId").innerText = urlParams.get("acct1");
+                document.getElementById("currency").innerText = urlParams.get("cur1").toUpperCase();
+                document.getElementById("token").innerText = urlParams.get("token1");
             }
         }
 
         window.onload = checkOAuthResponse;
-                    </script>
-                    
+    </script>
+</body>
+</html>
