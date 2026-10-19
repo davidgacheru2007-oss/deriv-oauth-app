@@ -31,7 +31,7 @@
     </div>
 
     <script>
-        // STEP 1: PASTE YOUR NUMERIC DERIV APP ID BETWEEN THE QUOTES
+        // Your real numeric Deriv App ID is now permanently inserted here:
         const APP_ID = '34401749'; 
 
         // Automatically captures whatever URL your site ends up hosted on
@@ -39,10 +39,7 @@
 
         // Triggers the standard secure Deriv OAuth portal screen
         document.getElementById('loginBtn').addEventListener('click', () => {
-            if(APP_ID === 'YOUR_DERIV_APP_ID_HERE') {
-                alert('Please update the code with your actual Deriv App ID first!');
-                return;
-            }
+            // Secure, fixed OAuth web address structure
             const oauthUrl = `https://deriv.com{APP_ID}&l=en`;
             window.location.href = oauthUrl;
         });
@@ -66,6 +63,4 @@
         window.onload = checkOAuthResponse;
     </script>
 </body>
-  </html>
-
-      
+</html>
